@@ -1093,6 +1093,18 @@
         color-scheme: light;
       }
 
+      .filter-date-display {
+        color: #173330;
+      }
+
+      .filter-date-display--empty {
+        color: #a49c90;
+      }
+
+      .filter-date-icon {
+        color: rgba(23, 51, 48, 0.42);
+      }
+
       :global(.select-wrap--dark) {
         color: #173330;
         width: 100%;
