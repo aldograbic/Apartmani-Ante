@@ -680,6 +680,18 @@
       width: 100%;
       color-scheme: dark;
     }
+    input::-webkit-datetime-edit,
+    input::-webkit-datetime-edit-fields-wrapper,
+    input::-webkit-datetime-edit-text,
+    input::-webkit-datetime-edit-month-field,
+    input::-webkit-datetime-edit-day-field,
+    input::-webkit-datetime-edit-year-field {
+      color: white;
+    }
+    input::-webkit-calendar-picker-indicator {
+      opacity: 0.9;
+      filter: invert(1);
+    }
 
     :global(.select-wrap--dark) {
       width: 100%;

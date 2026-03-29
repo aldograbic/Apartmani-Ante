@@ -643,6 +643,18 @@
     -webkit-appearance: none;
     appearance: none;
   }
+  .booking-input::-webkit-datetime-edit,
+  .booking-input::-webkit-datetime-edit-fields-wrapper,
+  .booking-input::-webkit-datetime-edit-text,
+  .booking-input::-webkit-datetime-edit-month-field,
+  .booking-input::-webkit-datetime-edit-day-field,
+  .booking-input::-webkit-datetime-edit-year-field {
+    color: white;
+  }
+  .booking-input::-webkit-calendar-picker-indicator {
+    opacity: 0.9;
+    filter: invert(1);
+  }
 
   .btn-booking-cta {
     display: inline-flex;
