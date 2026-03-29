@@ -33,6 +33,8 @@
   let filterGosti = "";
   let filterSize = "";
   let mobileFiltersOpen = false;
+  let filterDolazakInput;
+  let filterOdlazakInput;
 
   let dateInputFocused = false;
 
@@ -90,6 +92,29 @@
     }
 
     return true;
+  }
+
+  function formatDisplayDate(value) {
+    if (!value) return "Odaberite datum";
+
+    return new Intl.DateTimeFormat("hr-HR", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      timeZone: "Europe/Zagreb",
+    }).format(new Date(`${value}T00:00:00`));
+  }
+
+  function openNativeDatePicker(input) {
+    if (!input) return;
+
+    if (typeof input.showPicker === "function") {
+      input.showPicker();
+      return;
+    }
+
+    input.focus();
+    input.click();
   }
 
   $: guestiNum = parseInt(filterGosti) || 0;
@@ -222,31 +247,69 @@
     >
       <div class="filter-field flex-1 border-r border-white/10">
         <label for="dolazak">Dolazak</label>
-        <input
-          id="dolazak"
-          type="date"
-          bind:value={filterDolazak}
-          on:focus={() => (dateInputFocused = true)}
-          on:change={() => {
-            dateInputFocused = false;
-            applyFilters();
-          }}
-          on:blur={() => (dateInputFocused = false)}
-        />
+        <div
+          class="filter-date-field"
+          on:click={() => openNativeDatePicker(filterDolazakInput)}
+        >
+          <span class="filter-date-display" class:filter-date-display--empty={!filterDolazak}>
+            {formatDisplayDate(filterDolazak)}
+          </span>
+          <svg class="filter-date-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path
+              d="M4.25 1.75v2M11.75 1.75v2M2.75 5.25h10.5M3.75 3.25h8.5a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-8.5a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1Z"
+              stroke="currentColor"
+              stroke-width="1.35"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <input
+            id="dolazak"
+            type="date"
+            bind:value={filterDolazak}
+            bind:this={filterDolazakInput}
+            class="filter-date-native"
+            on:focus={() => (dateInputFocused = true)}
+            on:change={() => {
+              dateInputFocused = false;
+              applyFilters();
+            }}
+            on:blur={() => (dateInputFocused = false)}
+          />
+        </div>
       </div>
 
       <div class="filter-field flex-1 border-r border-white/10">
         <label for="odlazak">Odlazak</label>
-        <input
-          id="odlazak"
-          type="date"
-          bind:value={filterOdlazak}
-          on:focus={() => (dateInputFocused = true)}
-          on:blur={() => {
-            dateInputFocused = false;
-            applyFilters();
-          }}
-        />
+        <div
+          class="filter-date-field"
+          on:click={() => openNativeDatePicker(filterOdlazakInput)}
+        >
+          <span class="filter-date-display" class:filter-date-display--empty={!filterOdlazak}>
+            {formatDisplayDate(filterOdlazak)}
+          </span>
+          <svg class="filter-date-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path
+              d="M4.25 1.75v2M11.75 1.75v2M2.75 5.25h10.5M3.75 3.25h8.5a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-8.5a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1Z"
+              stroke="currentColor"
+              stroke-width="1.35"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <input
+            id="odlazak"
+            type="date"
+            bind:value={filterOdlazak}
+            bind:this={filterOdlazakInput}
+            class="filter-date-native"
+            on:focus={() => (dateInputFocused = true)}
+            on:blur={() => {
+              dateInputFocused = false;
+              applyFilters();
+            }}
+          />
+        </div>
       </div>
 
       <div class="filter-field flex-1 border-r border-white/10">
@@ -680,17 +743,48 @@
       width: 100%;
       color-scheme: dark;
     }
-    input::-webkit-datetime-edit,
-    input::-webkit-datetime-edit-fields-wrapper,
-    input::-webkit-datetime-edit-text,
-    input::-webkit-datetime-edit-month-field,
-    input::-webkit-datetime-edit-day-field,
-    input::-webkit-datetime-edit-year-field {
+
+    .filter-date-field {
+      position: relative;
+      display: flex;
+      align-items: center;
+      min-height: 1.35rem;
+      width: 100%;
+      color: white;
+      cursor: pointer;
+    }
+
+    .filter-date-display {
+      display: block;
+      min-width: 0;
+      padding-right: 1.8rem;
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 400;
+      line-height: 1.25;
       color: white;
     }
-    input::-webkit-calendar-picker-indicator {
-      opacity: 1;
-      filter: none;
+
+    .filter-date-display--empty {
+      color: rgba(255, 255, 255, 0.45);
+    }
+
+    .filter-date-icon {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      width: 1rem;
+      height: 1rem;
+      color: white;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+
+    .filter-date-native {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
     }
 
     :global(.select-wrap--dark) {

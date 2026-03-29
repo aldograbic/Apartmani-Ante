@@ -45,6 +45,8 @@
 
   let dolazak = "";
   let odlazak = "";
+  let dolazakInput;
+  let odlazakInput;
 
   const gostiItems = [
     { value: "", label: "Svi kapaciteti" },
@@ -56,6 +58,29 @@
   ];
 
   let gosti = gostiItems.find((item) => item.value === "2");
+
+  function formatDisplayDate(value) {
+    if (!value) return "Odaberite datum";
+
+    return new Intl.DateTimeFormat("hr-HR", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      timeZone: "Europe/Zagreb",
+    }).format(new Date(`${value}T00:00:00`));
+  }
+
+  function openNativeDatePicker(input) {
+    if (!input) return;
+
+    if (typeof input.showPicker === "function") {
+      input.showPicker();
+      return;
+    }
+
+    input.focus();
+    input.click();
+  }
 
   function rezerviraj() {
     const params = new URLSearchParams();
@@ -142,22 +167,58 @@
       >
         <div class="booking-field flex-1 px-6 py-4 border-r border-white/10">
           <p class="booking-label">Dolazak</p>
-          <input
-            type="date"
-            bind:value={dolazak}
-            class="booking-input"
-            style="color-scheme: dark;"
-          />
+          <label
+            class="booking-date-field"
+            on:click|preventDefault={() => openNativeDatePicker(dolazakInput)}
+          >
+            <span class="booking-date-display" class:booking-date-display--empty={!dolazak}>
+              {formatDisplayDate(dolazak)}
+            </span>
+            <svg class="booking-date-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path
+                d="M4.25 1.75v2M11.75 1.75v2M2.75 5.25h10.5M3.75 3.25h8.5a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-8.5a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1Z"
+                stroke="currentColor"
+                stroke-width="1.35"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <input
+              type="date"
+              bind:value={dolazak}
+              bind:this={dolazakInput}
+              class="booking-input booking-input--native"
+              style="color-scheme: dark;"
+            />
+          </label>
         </div>
 
         <div class="booking-field flex-1 px-6 py-4 border-r border-white/10">
           <p class="booking-label">Odlazak</p>
-          <input
-            type="date"
-            bind:value={odlazak}
-            class="booking-input"
-            style="color-scheme: dark;"
-          />
+          <label
+            class="booking-date-field"
+            on:click|preventDefault={() => openNativeDatePicker(odlazakInput)}
+          >
+            <span class="booking-date-display" class:booking-date-display--empty={!odlazak}>
+              {formatDisplayDate(odlazak)}
+            </span>
+            <svg class="booking-date-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path
+                d="M4.25 1.75v2M11.75 1.75v2M2.75 5.25h10.5M3.75 3.25h8.5a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-8.5a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1Z"
+                stroke="currentColor"
+                stroke-width="1.35"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <input
+              type="date"
+              bind:value={odlazak}
+              bind:this={odlazakInput}
+              class="booking-input booking-input--native"
+              style="color-scheme: dark;"
+            />
+          </label>
         </div>
         <div class="booking-field flex-1 px-6 py-4 border-r border-white/10">
           <p class="booking-label">Gosti</p>
@@ -643,17 +704,43 @@
     -webkit-appearance: none;
     appearance: none;
   }
-  .booking-input::-webkit-datetime-edit,
-  .booking-input::-webkit-datetime-edit-fields-wrapper,
-  .booking-input::-webkit-datetime-edit-text,
-  .booking-input::-webkit-datetime-edit-month-field,
-  .booking-input::-webkit-datetime-edit-day-field,
-  .booking-input::-webkit-datetime-edit-year-field {
+  .booking-date-field {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 1.4rem;
+    width: 100%;
     color: white;
+    cursor: pointer;
   }
-  .booking-input::-webkit-calendar-picker-indicator {
-    opacity: 1;
-    filter: none;
+  .booking-date-display {
+    display: block;
+    min-width: 0;
+    padding-right: 1.8rem;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: white;
+    line-height: 1.25;
+  }
+  .booking-date-display--empty {
+    color: rgba(255, 255, 255, 0.55);
+  }
+  .booking-date-icon {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 1rem;
+    height: 1rem;
+    color: white;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+  .booking-input--native {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
   }
 
   .btn-booking-cta {
