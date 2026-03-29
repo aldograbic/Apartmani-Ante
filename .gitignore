@@ -1,0 +1,16 @@
+.env
+.env.*
+!.env.example
+
+node_modules/
+.svelte-kit/
+dist/
+build/
+.vercel/
+.netlify/
+
+data/bookings.json
+data/reservation-requests.json
+
+.DS_Store
+Thumbs.db
