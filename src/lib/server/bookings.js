@@ -1,9 +1,10 @@
 import { randomUUID } from "node:crypto";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
-import path from "node:path";
+import {
+  readRuntimeJsonFile,
+  writeRuntimeJsonFile,
+} from "$lib/server/storage.js";
 
-const BOOKINGS_DIRECTORY = path.join(process.cwd(), "data");
-const BOOKINGS_FILE = path.join(BOOKINGS_DIRECTORY, "bookings.json");
+const BOOKINGS_FILE = "bookings.json";
 
 function normalizeBookings(rawData) {
   if (!rawData || typeof rawData !== "object") {
@@ -28,18 +29,8 @@ function normalizeBookings(rawData) {
   );
 }
 
-async function ensureBookingsFile() {
-  try {
-    await readFile(BOOKINGS_FILE, "utf8");
-  } catch {
-    await mkdir(BOOKINGS_DIRECTORY, { recursive: true });
-    await writeFile(BOOKINGS_FILE, "{}\n", "utf8");
-  }
-}
-
 export async function readBookings() {
-  await ensureBookingsFile();
-  const fileContents = await readFile(BOOKINGS_FILE, "utf8");
+  const fileContents = await readRuntimeJsonFile(BOOKINGS_FILE, "{}\n");
 
   try {
     return normalizeBookings(JSON.parse(fileContents));
@@ -49,8 +40,11 @@ export async function readBookings() {
 }
 
 async function writeBookings(data) {
-  await mkdir(BOOKINGS_DIRECTORY, { recursive: true });
-  await writeFile(BOOKINGS_FILE, `${JSON.stringify(data, null, 2)}\n`, "utf8");
+  await writeRuntimeJsonFile(
+    BOOKINGS_FILE,
+    `${JSON.stringify(data, null, 2)}\n`,
+    "{}\n",
+  );
 }
 
 function hasOverlap(existingBookings, nextBooking) {

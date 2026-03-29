@@ -1,22 +1,13 @@
-import { mkdir, readFile, writeFile } from "node:fs/promises";
-import path from "node:path";
 import { randomUUID } from "node:crypto";
+import {
+  readRuntimeJsonFile,
+  writeRuntimeJsonFile,
+} from "$lib/server/storage.js";
 
-const DATA_DIRECTORY = path.join(process.cwd(), "data");
-const REQUESTS_FILE = path.join(DATA_DIRECTORY, "reservation-requests.json");
-
-async function ensureRequestsFile() {
-  try {
-    await readFile(REQUESTS_FILE, "utf8");
-  } catch {
-    await mkdir(DATA_DIRECTORY, { recursive: true });
-    await writeFile(REQUESTS_FILE, "[]\n", "utf8");
-  }
-}
+const REQUESTS_FILE = "reservation-requests.json";
 
 async function readRequests() {
-  await ensureRequestsFile();
-  const contents = await readFile(REQUESTS_FILE, "utf8");
+  const contents = await readRuntimeJsonFile(REQUESTS_FILE, "[]\n");
 
   try {
     const parsed = JSON.parse(contents);
@@ -34,10 +25,10 @@ export async function createReservationRequest(payload) {
     ...payload,
   };
 
-  await writeFile(
+  await writeRuntimeJsonFile(
     REQUESTS_FILE,
     `${JSON.stringify([...requests, nextRequest], null, 2)}\n`,
-    "utf8",
+    "[]\n",
   );
 
   return nextRequest;

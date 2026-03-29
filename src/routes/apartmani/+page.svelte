@@ -689,8 +689,8 @@
       color: white;
     }
     input::-webkit-calendar-picker-indicator {
-      opacity: 0.9;
-      filter: invert(1);
+      opacity: 1;
+      filter: none;
     }
 
     :global(.select-wrap--dark) {
