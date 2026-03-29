@@ -22,6 +22,73 @@ async function readRequestsFromJson() {
   }
 }
 
+export async function readReservationRequests() {
+  if (hasDatabase()) {
+    await ensureDatabaseSchema();
+    const sql = getSql();
+    const rows = await sql`
+      SELECT
+        id,
+        apartment_id AS "apartmentId",
+        apartment_name AS "apartmentName",
+        check_in::text AS "checkIn",
+        check_out::text AS "checkOut",
+        name,
+        email,
+        phone,
+        adults,
+        children,
+        arrival_time AS "arrivalTime",
+        comment,
+        status,
+        created_at AS "createdAt"
+      FROM reservation_requests
+      ORDER BY created_at DESC
+    `;
+
+    return rows.map((row) => ({
+      id: row.id,
+      apartmentId: row.apartmentId,
+      apartmentName: row.apartmentName,
+      checkIn: row.checkIn,
+      checkOut: row.checkOut,
+      name: row.name || "",
+      email: row.email || "",
+      phone: row.phone || "",
+      adults: Number(row.adults || 0),
+      children: Number(row.children || 0),
+      arrivalTime: row.arrivalTime || "",
+      comment: row.comment || "",
+      status: row.status || "new",
+      createdAt:
+        row.createdAt instanceof Date
+          ? row.createdAt.toISOString()
+          : String(row.createdAt || ""),
+    }));
+  }
+
+  const requests = await readRequestsFromJson();
+
+  return requests
+    .map((request) => ({
+      id: request.id,
+      apartmentId: request.apartmentId,
+      apartmentName: request.apartmentName || "",
+      checkIn: request.checkIn,
+      checkOut: request.checkOut,
+      name: request.name || "",
+      email: request.email || "",
+      phone: request.phone || "",
+      adults: Number(request.adults || 0),
+      children: Number(request.children || 0),
+      arrivalTime: request.arrivalTime || "",
+      comment: request.comment || "",
+      status: request.status || "new",
+      createdAt: request.createdAt || "",
+    }))
+    .sort((left, right) => right.createdAt.localeCompare(left.createdAt));
+}
+
 export async function createReservationRequest(payload) {
   const nextRequest = {
     id: randomUUID(),

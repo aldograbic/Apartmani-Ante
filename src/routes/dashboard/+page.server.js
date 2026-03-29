@@ -7,6 +7,7 @@ import {
   readBookings,
   removeBooking,
 } from "$lib/server/bookings";
+import { readReservationRequests } from "$lib/server/reservationRequests";
 
 export const actions = {
   addBooking: async ({ request }) => {
@@ -77,6 +78,7 @@ export const actions = {
 
 export async function load({ locals }) {
   const bookingsByApartment = await readBookings();
+  const reservationRequests = await readReservationRequests();
 
   return {
     user: locals.user,
@@ -84,9 +86,11 @@ export async function load({ locals }) {
       ...apartment,
       bookings: bookingsByApartment[apartment.id] || [],
     })),
+    reservationRequests,
     stats: {
       apartmentCount: apartments.length,
       upcomingBookings: countUpcomingBookings(bookingsByApartment),
+      reservationRequestCount: reservationRequests.length,
     },
   };
 }

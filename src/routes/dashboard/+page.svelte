@@ -32,6 +32,22 @@
     return Math.round((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
   }
 
+  function formatRequestStatus(status) {
+    if (status === "new") {
+      return "Novi upit";
+    }
+
+    if (status === "confirmed") {
+      return "Potvrđeno";
+    }
+
+    if (status === "cancelled") {
+      return "Otkazano";
+    }
+
+    return status;
+  }
+
   function handleRangeSelect(apartmentId, event) {
     bookingDrafts = {
       ...bookingDrafts,
@@ -79,6 +95,10 @@
         <span>Nadolazeće rezervacije</span>
         <strong>{data.stats.upcomingBookings}</strong>
       </div>
+      <div class="stat-pill">
+        <span>Rezervacijski upiti</span>
+        <strong>{data.stats.reservationRequestCount}</strong>
+      </div>
     </div>
   </div>
 
@@ -89,6 +109,53 @@
   {#if form?.bookingSuccess}
     <p class="dashboard-message dashboard-message--success">{form.bookingSuccess}</p>
   {/if}
+
+  <section class="requests-panel">
+    <div class="requests-panel__header">
+      <div>
+        <p class="requests-panel__eyebrow">Rezervacijski upiti</p>
+        <h2>Upiti poslani kroz javnu formu</h2>
+      </div>
+      <span>{data.reservationRequests.length}</span>
+    </div>
+
+    {#if data.reservationRequests.length > 0}
+      <div class="requests-grid">
+        {#each data.reservationRequests as request}
+          <article class="request-card">
+            <div class="request-card__top">
+              <div>
+                <p class="request-card__apartment">{request.apartmentName}</p>
+                <p class="request-card__dates">
+                  {formatDate(request.checkIn)} - {formatDate(request.checkOut)}
+                </p>
+              </div>
+              <span class="request-card__status">{formatRequestStatus(request.status)}</span>
+            </div>
+
+            <div class="request-card__meta">
+              <p><strong>Gost:</strong> {request.name}</p>
+              <p><strong>Email:</strong> {request.email}</p>
+              <p><strong>Telefon:</strong> {request.phone}</p>
+              <p><strong>Gosti:</strong> {request.adults} odraslih · {request.children} djece</p>
+              {#if request.arrivalTime}
+                <p><strong>Dolazak:</strong> {request.arrivalTime}</p>
+              {/if}
+              <p><strong>Zaprimljeno:</strong> {formatDate(request.createdAt.slice(0, 10))}</p>
+            </div>
+
+            {#if request.comment}
+              <p class="request-card__comment">{request.comment}</p>
+            {/if}
+          </article>
+        {/each}
+      </div>
+    {:else}
+      <p class="requests-panel__empty">
+        Još nema zaprimljenih upita kroz javnu rezervacijsku formu.
+      </p>
+    {/if}
+  </section>
 
   <div class="apartment-sections">
     {#each data.apartments as apartment}
@@ -219,6 +286,7 @@
   .dashboard-topbar,
   .dashboard-hero,
   .dashboard-message,
+  .requests-panel,
   .apartment-sections {
     width: min(100%, 78rem);
     margin: 0 auto;
@@ -369,6 +437,127 @@
     background: rgba(43, 121, 94, 0.12);
     border: 1px solid rgba(43, 121, 94, 0.16);
     color: #215f4b;
+  }
+
+  .requests-panel {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    border-radius: 2rem;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(19, 34, 32, 0.08);
+    box-shadow: 0 14px 40px rgba(19, 34, 32, 0.06);
+    backdrop-filter: blur(16px);
+  }
+
+  .requests-panel__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .requests-panel__eyebrow {
+    margin: 0;
+    color: #5d8483;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .requests-panel__header h2 {
+    margin: 0.45rem 0 0;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    line-height: 1.1;
+  }
+
+  .requests-panel__header span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.5rem;
+    height: 2.5rem;
+    padding: 0 0.75rem;
+    border-radius: 999px;
+    background: rgba(19, 34, 32, 0.08);
+    color: #173330;
+    font-weight: 700;
+  }
+
+  .requests-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .request-card {
+    padding: 1.15rem;
+    border-radius: 1.35rem;
+    background: #fffdfa;
+    border: 1px solid rgba(19, 34, 32, 0.07);
+    box-shadow: 0 10px 24px rgba(19, 34, 32, 0.05);
+  }
+
+  .request-card__top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .request-card__apartment {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #173330;
+  }
+
+  .request-card__dates {
+    margin: 0.3rem 0 0;
+    color: #5f7270;
+  }
+
+  .request-card__status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.45rem 0.75rem;
+    border-radius: 999px;
+    background: rgba(184, 140, 87, 0.14);
+    color: #8f6332;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .request-card__meta {
+    display: grid;
+    gap: 0.35rem;
+    color: #455654;
+    line-height: 1.6;
+  }
+
+  .request-card__meta p,
+  .request-card__comment,
+  .requests-panel__empty {
+    margin: 0;
+  }
+
+  .request-card__comment {
+    margin-top: 0.85rem;
+    padding: 0.9rem 1rem;
+    border-radius: 1rem;
+    background: rgba(19, 34, 32, 0.04);
+    color: #52615f;
+    line-height: 1.7;
+  }
+
+  .requests-panel__empty {
+    color: #5f7270;
+    line-height: 1.7;
   }
 
   .apartment-sections {
@@ -586,6 +775,10 @@
   @media (max-width: 1024px) {
     .apartment-panel__content,
     .dashboard-hero {
+      grid-template-columns: 1fr;
+    }
+
+    .requests-grid {
       grid-template-columns: 1fr;
     }
   }
