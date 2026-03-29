@@ -21,7 +21,13 @@
       apartments: $page.url.pathname === "/apartmani" ? apartments : $page.data.apartments,
     },
   });
-  $: schemaScripts = seo.schema.map((item) => JSON.stringify(item));
+  const ldScriptClose = "</scr" + "ipt>";
+  $: schemaMarkup = seo.schema
+    .map(
+      (item) =>
+        `<script type="application/ld+json">${JSON.stringify(item).replaceAll("<", "\\u003c")}${ldScriptClose}`,
+    )
+    .join("");
 
   onMount(() => {
     // Navbar scroll effect
@@ -73,9 +79,7 @@
   <meta name="twitter:description" content={seo.description} />
   <meta name="twitter:image" content={seo.image} />
   <link rel="canonical" href={seo.canonical} />
-  {#each schemaScripts as schema}
-    <script type="application/ld+json">{schema}</script>
-  {/each}
+  {@html schemaMarkup}
 </svelte:head>
 
 {#if !isPrivateRoute}
