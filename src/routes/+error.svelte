@@ -1,10 +1,10 @@
 <svelte:head>
-  <title>404 – Stranica nije pronađena</title>
+  <title>404 - Stranica nije pronađena</title>
+  <meta name="robots" content="noindex,nofollow" />
 </svelte:head>
 
 <div class="min-h-[80vh] flex items-center justify-center px-6 bg-[#faf8f5]">
   <div class="text-center">
-    <!-- Large 404 -->
     <p
       class="font-[Cormorant_Garamond] italic font-light text-[#1e5c5a]/10 leading-none select-none mb-4"
       style="font-size: clamp(8rem, 20vw, 16rem)"
@@ -12,13 +12,13 @@
       404
     </p>
 
-    <!-- Divider line -->
     <div class="flex items-center justify-center gap-4 mb-8 -mt-4">
       <span class="h-px w-16 bg-[#e6dcc8]"></span>
       <span
         class="font-[DM_Sans] text-[0.6rem] tracking-[0.25em] uppercase text-[#8a8a80]"
-        >Stranica nije pronađena</span
       >
+        Stranica nije pronađena
+      </span>
       <span class="h-px w-16 bg-[#e6dcc8]"></span>
     </div>
 
