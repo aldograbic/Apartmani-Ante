@@ -181,8 +181,16 @@
   <div class="hero-bg absolute inset-0">
     <img
       src="/img/hero-apartmani-ante.webp"
+      srcset="
+        /img/hero-apartmani-ante-960.webp 960w,
+        /img/hero-apartmani-ante-1280.webp 1280w,
+        /img/hero-apartmani-ante-1920.webp 1920w,
+        /img/hero-apartmani-ante.webp 2560w
+      "
+      sizes="100vw"
       alt="Makarska obala"
       class="hero-img h-full w-full object-cover object-[center_40%]"
+      fetchpriority="high"
       loading="eager"
     />
     <div
@@ -414,6 +422,8 @@
               >
                 <img
                   src={apt.image}
+                  srcset={apt.imageSrcset}
+                  sizes="(min-width: 1024px) 50vw, calc(100vw - 64px)"
                   alt={apt.name}
                   class="listing-image h-full w-full object-cover"
                   loading="lazy"
