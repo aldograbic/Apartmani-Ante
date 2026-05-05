@@ -33,8 +33,17 @@
   <div class="hero-bg absolute inset-0">
     <img
       src="img/apartmani-makarska-more.webp"
+      srcset="
+        img/apartmani-makarska-more-640.webp 640w,
+        img/apartmani-makarska-more-768.webp 768w,
+        img/apartmani-makarska-more-960.webp 960w,
+        img/apartmani-makarska-more-1280.webp 1280w,
+        img/apartmani-makarska-more.webp 2000w
+      "
+      sizes="100vw"
       alt="Pogled na Biokovo i Makarsku"
       class="h-full w-full object-cover object-[center_30%] hero-img"
+      fetchpriority="high"
       loading="eager"
     />
     <div
@@ -133,6 +142,13 @@
         <div class="absolute inset-y-0 left-0 right-[16%] overflow-hidden">
           <img
             src="img/apartmani-makarska-ljudi.webp"
+            srcset="
+              img/apartmani-makarska-ljudi-480.webp 480w,
+              img/apartmani-makarska-ljudi-700.webp 700w,
+              img/apartmani-makarska-ljudi-900.webp 900w,
+              img/apartmani-makarska-ljudi.webp 2000w
+            "
+            sizes="(min-width: 768px) 410px, 292px"
             alt="Apartmani Makarska ljudi"
             style="overflow-clip-margin: unset;"
             class="h-full w-full object-cover transition-transform duration-700 hover:scale-[1.03]"
@@ -143,8 +159,13 @@
           class="absolute bottom-0 right-0 h-[44%] w-[50%] overflow-hidden border-4 border-[#faf8f5]"
         >
           <img
-            src="https://images.unsplash.com/photo-1527529482837-4698179dc6ce?w=500&q=80"
-            alt="Makarska obala"
+            src="img/kuca-apartmani-ante-480.webp"
+            srcset="
+              img/kuca-apartmani-ante-320.webp 320w,
+              img/kuca-apartmani-ante-480.webp 480w
+            "
+            sizes="(min-width: 768px) 236px, 166px"
+            alt="Kuća Apartmani Ante"
             class="h-full w-full object-cover transition-transform duration-700 hover:scale-[1.03]"
             loading="lazy"
           />
@@ -340,14 +361,49 @@
         </div>
       </div>
 
-      <div class="aspect-[4/3] overflow-hidden border border-[#e6dcc8]">
-        <iframe
-          title="Lokacija Apartmani Ante"
-          src="https://maps.google.com/maps?q=Kotromanića+9,+Makarska&output=embed&z=15"
-          loading="lazy"
-          allowfullscreen
-          class="w-full h-full border-0"
-        ></iframe>
+      <div class="map-panel">
+        <div class="map-panel__head">
+          <div class="map-panel__pin" aria-hidden="true">
+            <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+              <path
+                d="M8 1.5A4.5 4.5 0 0 0 3.5 6c0 3.38 4.5 8.5 4.5 8.5s4.5-5.12 4.5-8.5A4.5 4.5 0 0 0 8 1.5Zm0 6.1A1.6 1.6 0 1 1 8 4.4a1.6 1.6 0 0 1 0 3.2Z"
+                fill="currentColor"
+              />
+            </svg>
+          </div>
+          <div class="min-w-0">
+            <span class="map-panel__label">Apartmani Ante</span>
+            <address class="map-panel__address">
+              Kotromanića 9, 21300 Makarska
+            </address>
+          </div>
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Kotromani%C4%87a%209%2C%20Makarska"
+            target="_blank"
+            rel="noopener"
+            class="map-panel__link"
+          >
+            Otvori kartu
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+              <path
+                d="M5 3h8v8M13 3 4 12"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </a>
+        </div>
+        <div class="map-panel__frame">
+          <iframe
+            title="Lokacija Apartmani Ante"
+            src="https://maps.google.com/maps?q=Kotromanića+9,+Makarska&output=embed&z=15"
+            loading="lazy"
+            allowfullscreen
+            class="h-full w-full border-0"
+          ></iframe>
+        </div>
       </div>
     </div>
   </div>
@@ -512,6 +568,99 @@
   }
 
   // ─── Buttons ──────────────────────────────────────────────────────────
+  .map-panel {
+    overflow: hidden;
+    border: 1px solid rgba(44, 95, 96, 0.16);
+    border-radius: 8px;
+    background: #0d2623;
+    box-shadow: 0 24px 70px rgba(13, 38, 35, 0.1);
+  }
+
+  .map-panel__head {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    color: white;
+  }
+
+  .map-panel__pin {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.2rem;
+    height: 2.2rem;
+    border: 1px solid rgba(143, 213, 204, 0.2);
+    background: rgba(143, 213, 204, 0.1);
+    color: #8fd5cc;
+  }
+
+  .map-panel__label,
+  .map-panel__link {
+    font-family: var(--font-body);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .map-panel__label {
+    display: block;
+    color: rgba(143, 213, 204, 0.9);
+  }
+
+  .map-panel__address {
+    margin-top: 0.15rem;
+    color: rgba(255, 255, 255, 0.58);
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-style: normal;
+    line-height: 1.45;
+  }
+
+  .map-panel__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.72rem 0.85rem;
+    border: 1px solid rgba(143, 213, 204, 0.22);
+    color: #8fd5cc;
+    transition:
+      border-color 0.25s @ease,
+      background 0.25s @ease,
+      color 0.25s @ease;
+
+    &:hover {
+      border-color: rgba(143, 213, 204, 0.55);
+      background: rgba(143, 213, 204, 0.08);
+      color: white;
+    }
+  }
+
+  .map-panel__frame {
+    aspect-ratio: 4 / 3;
+    min-height: 320px;
+    background: #102f2b;
+  }
+
+  @media (max-width: 768px) {
+    .map-panel__head {
+      grid-template-columns: auto minmax(0, 1fr);
+    }
+
+    .map-panel__link {
+      grid-column: 1 / -1;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .map-panel__frame {
+      min-height: 300px;
+    }
+  }
+
   .btn-cta-white {
     display: inline-flex;
     align-items: center;

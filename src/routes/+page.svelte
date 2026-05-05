@@ -98,6 +98,8 @@
     <img
       src="/img/hero-apartmani-ante.webp"
       srcset="
+        /img/hero-apartmani-ante-640.webp 640w,
+        /img/hero-apartmani-ante-768.webp 768w,
         /img/hero-apartmani-ante-960.webp 960w,
         /img/hero-apartmani-ante-1280.webp 1280w,
         /img/hero-apartmani-ante-1920.webp 1920w,
