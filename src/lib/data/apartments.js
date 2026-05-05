@@ -72,6 +72,9 @@ export const apartments = [
       "/img/apartman-1/apartman23-3.webp",
       "/img/apartman-1/apartman23-4-1.webp",
       "/img/apartman-1/apartman-1-dnevna.webp",
+      "/img/apartman-1/balkon-2-apartman-1.webp",
+      "/img/apartman-1/balkon-apartman-1.webp",
+      "/img/apartman-1/pogled-na-more-makarska-apartman-1.webp",
     ],
   },
   {

@@ -171,10 +171,18 @@
             class="booking-date-field"
             on:click|preventDefault={() => openNativeDatePicker(dolazakInput)}
           >
-            <span class="booking-date-display" class:booking-date-display--empty={!dolazak}>
+            <span
+              class="booking-date-display"
+              class:booking-date-display--empty={!dolazak}
+            >
               {formatDisplayDate(dolazak)}
             </span>
-            <svg class="booking-date-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <svg
+              class="booking-date-icon"
+              viewBox="0 0 16 16"
+              fill="none"
+              aria-hidden="true"
+            >
               <path
                 d="M4.25 1.75v2M11.75 1.75v2M2.75 5.25h10.5M3.75 3.25h8.5a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-8.5a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1Z"
                 stroke="currentColor"
@@ -199,10 +207,18 @@
             class="booking-date-field"
             on:click|preventDefault={() => openNativeDatePicker(odlazakInput)}
           >
-            <span class="booking-date-display" class:booking-date-display--empty={!odlazak}>
+            <span
+              class="booking-date-display"
+              class:booking-date-display--empty={!odlazak}
+            >
               {formatDisplayDate(odlazak)}
             </span>
-            <svg class="booking-date-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <svg
+              class="booking-date-icon"
+              viewBox="0 0 16 16"
+              fill="none"
+              aria-hidden="true"
+            >
               <path
                 d="M4.25 1.75v2M11.75 1.75v2M2.75 5.25h10.5M3.75 3.25h8.5a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-8.5a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1Z"
                 stroke="currentColor"
@@ -340,7 +356,7 @@
           class="absolute bottom-0 right-0 h-[44%] w-[50%] overflow-hidden border-4 border-[#faf8f5]"
         >
           <img
-            src="img/sv-petar-makarska.jpg"
+            src="img/sv-petar-makarska.webp"
             alt="Makarska obala"
             class="h-full w-full object-cover transition-transform duration-700 hover:scale-[1.03]"
             style="overflow-clip-margin: unset;"
