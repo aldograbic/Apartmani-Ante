@@ -139,8 +139,8 @@
       <p
         class="hero-sub mb-10 max-w-[40ch] text-white/55 leading-relaxed text-[0.92rem]"
       >
-        Udobni obiteljski apartmani u srcu Makarske — samo par minuta pješice od
-        kristalno čistog mora.
+        Privatni obiteljski smještaj u srcu Makarske — samo par minuta pješice
+        od kristalno čistog mora.
       </p>
 
       <div class="mb-10 flex flex-wrap gap-4">
@@ -308,7 +308,7 @@
         <h2
           class="text-[#1a2e2c] mb-6 leading-[1.06] tracking-[-0.025em] about-heading"
         >
-          Vaš dom<br /><em class="italic text-[#2c5f60]">dalje od doma</em>
+          Privatni smještaj<br /><em class="italic text-[#2c5f60]">u Makarskoj</em>
         </h2>
         <p class="text-[#5a5a52] leading-[1.9] text-[0.9rem] mb-4">
           Naša obitelj s ponosom pruža toplo i srdačno gostoprimstvo već dugi
@@ -319,6 +319,11 @@
           Smješteni u mirnoj četvrti Makarske, svega nekoliko koraka od gradske
           plaže — savršena kombinacija privatnosti i blizine svemu što Makarska
           nudi.
+        </p>
+        <p class="text-[#5a5a52] leading-[1.9] text-[0.9rem] mb-10">
+          Apartmani Ante namijenjeni su gostima koji traže miran apartman za
+          odmor, obiteljski smještaj blizu plaže i jednostavan dolazak do
+          rive, restorana, trgovina i izleta po Makarskoj rivijeri.
         </p>
 
         <div class="flex gap-10 border-t border-[#e6dcc8] pt-8 mb-10">
@@ -401,13 +406,14 @@
         <h2
           class="text-[#1a2e2c] leading-tight tracking-[-0.02em] section-heading"
         >
-          Naši apartmani
+          Apartmani za odmor u Makarskoj
         </h2>
       </div>
       <p
         class="text-[0.88rem] max-w-[30ch] text-[#8a8a80] md:text-right leading-relaxed"
       >
-        Tri pažljivo opremljene jedinice za nezaboravan odmor uz Jadransko more.
+        Tri pažljivo opremljene jedinice za odmor uz Jadransko more, plaže i
+        sadržaje Makarske.
       </p>
     </div>
 
@@ -415,6 +421,23 @@
       {#each apartments as apt, i}
         <ApartmentCard apartment={apt} index={i} />
       {/each}
+    </div>
+
+    <div
+      class="mt-14 grid gap-6 border-t border-[#e6dcc8] pt-8 text-[#5a5a52] md:grid-cols-2"
+    >
+      <p class="text-[0.9rem] leading-[1.9]">
+        Ako tražite apartmane u Makarskoj za obiteljski odmor, Apartmani Ante
+        nude mirnu bazu blizu mora i centra grada. Svaka smještajna jedinica ima
+        prostor za opuštanje, klima uređaj, WiFi i praktičan raspored za boravak
+        tijekom ljetne sezone.
+      </p>
+      <p class="text-[0.9rem] leading-[1.9]">
+        Lokacija je pogodna za goste koji žele plažu, šetnicu, restorane i
+        izlete po Makarskoj rivijeri bez komplicirane organizacije. Pošaljite
+        upit za rezervaciju i provjerite koji apartman najbolje odgovara broju
+        gostiju i terminu putovanja.
+      </p>
     </div>
   </div>
 </section>
@@ -626,6 +649,12 @@
     font-size: clamp(4rem, 9vw, 8.5rem);
     opacity: 0;
     animation: slideUp 0.8s 0.35s @ease forwards;
+  }
+
+  @media (min-width: 900px) and (max-height: 820px) {
+    .hero-title {
+      font-size: clamp(3.6rem, 7vw, 6.8rem);
+    }
   }
   .hero-eyebrow {
     font-family: var(--font-body);

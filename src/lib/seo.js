@@ -3,7 +3,7 @@ export const SITE = {
   legalName: "Apartmani Ante Makarska",
   defaultTitle: "Apartmani Ante Makarska | Privatni apartmani za odmor",
   defaultDescription:
-    "Apartmani Ante u mirnom dijelu Makarske nude udoban, prostran smještaj s prekrasnim pogledom za nezaboravan odmor. Pošaljite upit za rezervaciju.",
+    "Apartmani Ante Makarska nude udoban, prostran smještaj u mirnom dijelu grada s prekrasnim pogledom za nezaboravan odmor. Pošaljite upit za rezervaciju.",
   defaultImage: "/img/kuca-apartmani-ante.webp",
   locale: "hr_HR",
   language: "hr-HR",
@@ -112,7 +112,7 @@ export function buildSeo({ pathname, origin, data }) {
   if (pathname === "/") {
     seo.title = "Apartmani Ante Makarska | Privatni apartmani za odmor";
     seo.description =
-      "Apartmani Ante u mirnom dijelu Makarske nude udoban, prostran smještaj s prekrasnim pogledom za nezaboravan odmor. Pošaljite upit za rezervaciju.";
+      "Apartmani Ante Makarska nude udoban, prostran smještaj u mirnom dijelu grada s prekrasnim pogledom za nezaboravan odmor. Pošaljite upit za rezervaciju.";
     seo.schema.push(
       {
         "@context": "https://schema.org",
