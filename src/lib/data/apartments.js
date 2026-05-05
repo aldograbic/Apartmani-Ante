@@ -65,6 +65,8 @@ export const apartments = [
       { from: "20.08.", to: "01.10.", price: "90€" },
     ],
     image: "/img/apartman-1/apartman-23-naslovna.webp",
+    imageSrcset:
+      "/img/apartman-1/apartman-23-naslovna-480.webp 480w, /img/apartman-1/apartman-23-naslovna-700.webp 700w, /img/apartman-1/apartman-23-naslovna-900.webp 900w, /img/apartman-1/apartman-23-naslovna.webp 1600w",
     images: [
       "/img/apartman-1/apartman-23-naslovna.webp",
       "/img/apartman-1/apartman23-1.webp",
@@ -143,6 +145,8 @@ export const apartments = [
       { from: "20.08.", to: "01.10.", price: "75€" },
     ],
     image: "/img/apartman-2/apartman-22-naslovna.webp",
+    imageSrcset:
+      "/img/apartman-2/apartman-22-naslovna-480.webp 480w, /img/apartman-2/apartman-22-naslovna-700.webp 700w, /img/apartman-2/apartman-22-naslovna-900.webp 900w, /img/apartman-2/apartman-22-naslovna.webp 1600w",
     images: [
       "/img/apartman-2/apartman-22-naslovna.webp",
       "/img/apartman-2/apartman-22-1.webp",
@@ -216,6 +220,8 @@ export const apartments = [
       { from: "20.08.", to: "01.10.", price: "50€" },
     ],
     image: "/img/studio/studio-1.webp",
+    imageSrcset:
+      "/img/studio/studio-1-480.webp 480w, /img/studio/studio-1-700.webp 700w, /img/studio/studio-1-900.webp 900w, /img/studio/studio-1.webp 1600w",
     images: [
       "/img/studio/studio-1.webp",
       "/img/studio/studio-2.webp",

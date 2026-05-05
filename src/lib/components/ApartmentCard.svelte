@@ -13,6 +13,8 @@
   >
     <img
       src={apartment.image}
+      srcset={apartment.imageSrcset}
+      sizes="(max-width: 768px) calc(100vw - 64px), 344px"
       alt={apartment.name}
       class="card__img absolute inset-0 h-full w-full object-cover"
       loading="lazy"

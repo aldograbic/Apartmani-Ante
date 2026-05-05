@@ -366,6 +366,7 @@
           <img
             src="img/sv-petar-makarska.webp"
             srcset="
+              img/sv-petar-makarska-320.webp 320w,
               img/sv-petar-makarska-480.webp 480w,
               img/sv-petar-makarska-800.webp 800w,
               img/sv-petar-makarska.webp 2560w
