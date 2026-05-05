@@ -81,6 +81,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="canonical" href={seo.canonical} />
+  <link rel="alternate" hreflang={SITE.language} href={seo.canonical} />
+  <link rel="alternate" hreflang="x-default" href={seo.canonical} />
   {@html schemaMarkup}
 </svelte:head>
 
