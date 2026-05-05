@@ -97,8 +97,16 @@
   <div class="hero-bg absolute inset-0">
     <img
       src="/img/hero-apartmani-ante.webp"
+      srcset="
+        /img/hero-apartmani-ante-960.webp 960w,
+        /img/hero-apartmani-ante-1280.webp 1280w,
+        /img/hero-apartmani-ante-1920.webp 1920w,
+        /img/hero-apartmani-ante.webp 2560w
+      "
+      sizes="100vw"
       alt="Makarska rivijera"
       class="h-full w-full object-cover object-center hero-img"
+      fetchpriority="high"
       loading="eager"
     />
     <div
@@ -357,6 +365,12 @@
         >
           <img
             src="img/sv-petar-makarska.webp"
+            srcset="
+              img/sv-petar-makarska-480.webp 480w,
+              img/sv-petar-makarska-800.webp 800w,
+              img/sv-petar-makarska.webp 2560w
+            "
+            sizes="(min-width: 768px) 236px, 166px"
             alt="Makarska obala"
             class="h-full w-full object-cover transition-transform duration-700 hover:scale-[1.03]"
             style="overflow-clip-margin: unset;"
