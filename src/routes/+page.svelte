@@ -8,8 +8,8 @@
     {
       num: "01",
       title: "Lokacija",
-      desc: "Par minuta pješice do plaže i promenade.",
-      tag: "Centar Makarske",
+      desc: "Plaža, šetnica i svakodnevni sadržaji dostupni su pješice.",
+      tag: "Dobra lokacija",
     },
     {
       num: "02",
@@ -26,7 +26,7 @@
     {
       num: "04",
       title: "Parking",
-      desc: "Besplatno privatno parkiranje za goste.",
+      desc: "Besplatno parkiranje za goste koji dolaze autom.",
       tag: "Gratis",
     },
     {
@@ -132,15 +132,15 @@
       </p>
 
       <h1 class="hero-title mb-7 text-white leading-[1.0] tracking-[-0.01em]">
-        Doživite ljeto<br />
-        <em class="text-[#c8a97e]">onako kako treba</em>
+        Apartmani za odmor<br />
+        <em class="text-[#c8a97e]">u Makarskoj</em>
       </h1>
 
       <p
         class="hero-sub mb-10 max-w-[40ch] text-white/55 leading-relaxed text-[0.92rem]"
       >
-        Privatni obiteljski smještaj u srcu Makarske — samo par minuta pješice
-        od kristalno čistog mora.
+        Miran privatni smještaj za parove i obitelji, s parkingom, klimom i
+        WiFi-jem za opušten ljetni odmor.
       </p>
 
       <div class="mb-10 flex flex-wrap gap-4">
@@ -149,7 +149,7 @@
       </div>
 
       <div class="flex flex-wrap gap-2">
-        {#each ["5 min od plaže", "Obiteljski smještaj", "Fleksibilan check-in", "Ocjena 5 / 5"] as f, i}
+        {#each ["Privatni smještaj", "Obiteljski apartmani", "Besplatan parking", "Klima i WiFi"] as f, i}
           <span
             class="pill text-white/75 border border-white/20 bg-white/[0.09] backdrop-blur-sm px-4 py-2 text-[0.65rem] tracking-[0.12em] uppercase"
             style="--d:{i * 80}ms">{f}</span
@@ -285,7 +285,7 @@
     class="ticker flex w-max items-center gap-8 text-[0.58rem] tracking-[0.22em] uppercase text-white/25"
   >
     {#each Array(4) as _}
-      {#each ["5 min od plaže", "Obiteljski smještaj", "Ocjena 5 / 5", "Besplatni parking", "Fleksibilan check-in", "15 godina iskustva"] as item}
+      {#each ["Apartmani Makarska", "Obiteljski smještaj", "Privatni smještaj", "Besplatni parking", "Klima i WiFi", "15 godina iskustva"] as item}
         <span class="shrink-0">{item}</span>
         <span class="h-1 w-1 shrink-0 rounded-full bg-[#8fd5cc]/40"></span>
       {/each}
@@ -322,8 +322,8 @@
         </p>
         <p class="text-[#5a5a52] leading-[1.9] text-[0.9rem] mb-10">
           Apartmani Ante namijenjeni su gostima koji traže miran apartman za
-          odmor, obiteljski smještaj blizu plaže i jednostavan dolazak do
-          rive, restorana, trgovina i izleta po Makarskoj rivijeri.
+          odmor u Makarskoj, obiteljski smještaj blizu plaže i jednostavan
+          dolazak do rive, restorana, trgovina i izleta po Makarskoj rivijeri.
         </p>
 
         <div class="flex gap-10 border-t border-[#e6dcc8] pt-8 mb-10">
@@ -406,14 +406,14 @@
         <h2
           class="text-[#1a2e2c] leading-tight tracking-[-0.02em] section-heading"
         >
-          Apartmani za odmor u Makarskoj
+          Odaberite svoj apartman
         </h2>
       </div>
       <p
         class="text-[0.88rem] max-w-[30ch] text-[#8a8a80] md:text-right leading-relaxed"
       >
-        Tri pažljivo opremljene jedinice za odmor uz Jadransko more, plaže i
-        sadržaje Makarske.
+        Tri pažljivo opremljene jedinice za ljetni odmor u mirnijem dijelu
+        Makarske, s parkingom, klimom i WiFi-jem.
       </p>
     </div>
 
@@ -428,15 +428,15 @@
     >
       <p class="text-[0.9rem] leading-[1.9]">
         Ako tražite apartmane u Makarskoj za obiteljski odmor, Apartmani Ante
-        nude mirnu bazu blizu mora i centra grada. Svaka smještajna jedinica ima
-        prostor za opuštanje, klima uređaj, WiFi i praktičan raspored za boravak
-        tijekom ljetne sezone.
+        nude mirnu bazu za boravak blizu gradskih sadržaja. Svaka smještajna
+        jedinica ima prostor za opuštanje, klima uređaj, WiFi i praktičan
+        raspored za boravak tijekom ljetne sezone.
       </p>
       <p class="text-[0.9rem] leading-[1.9]">
-        Lokacija je pogodna za goste koji žele plažu, šetnicu, restorane i
-        izlete po Makarskoj rivijeri bez komplicirane organizacije. Pošaljite
-        upit za rezervaciju i provjerite koji apartman najbolje odgovara broju
-        gostiju i terminu putovanja.
+        Lokacija je pogodna za goste koji žele privatni smještaj u Makarskoj s
+        parkingom, a plažu, šetnicu, restorane i izlete po Makarskoj rivijeri
+        žele imati dostupne pješice. Pošaljite upit za rezervaciju i provjerite
+        koji apartman najbolje odgovara broju gostiju i terminu putovanja.
       </p>
     </div>
   </div>

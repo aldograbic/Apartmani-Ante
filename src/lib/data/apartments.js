@@ -7,7 +7,7 @@ export const apartments = [
     size: "35m²",
     capacity: "2+3",
     description:
-      "Prostrani apartman s potpuno opremljenom kuhinjom, klimatizacijom i sunčanim balkonom. Idealan za obitelji do 5 osoba.",
+      "Prostrani apartman u Makarskoj za obitelji do 5 osoba, s opremljenom kuhinjom, klimom, WiFi-jem, balkonom i parkingom.",
     tags: ["35m²", "2+3", "Balkon", "Klima"],
     amenities: [
       "Potpuno opremljena kuhinja",
@@ -87,7 +87,7 @@ export const apartments = [
     size: "30m²",
     capacity: "2+2",
     description:
-      "Elegantni apartman za 4 osobe s udobnom spavaćom sobom, modernom kupaonicom i svim potrebnim sadržajima.",
+      "Udoban apartman u Makarskoj za 4 osobe, idealan za obiteljski ljetni odmor, s balkonom, klimom, WiFi-jem i parkingom.",
     tags: ["30m²", "2+2", "Klima", "WiFi"],
     amenities: [
       "Potpuno opremljena kuhinja",
@@ -164,7 +164,7 @@ export const apartments = [
     size: "20m²",
     capacity: "1–2",
     description:
-      "Intimni studio idealan za parove. Pametno dizajniran prostor s kuhinjskim kutom, kupaonicom i svim ugodnostima.",
+      "Studio apartman u Makarskoj za 1-2 osobe, idealan za parove koji traže miran privatni smještaj s klimom, WiFi-jem i kuhinjskim kutom.",
     tags: ["20m²", "1–2 osobe", "Studio", "Klima"],
     amenities: [
       "Kuhinjski kut",

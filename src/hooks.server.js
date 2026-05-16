@@ -9,11 +9,17 @@ import {
 const PROTECTED_ROUTES = ["/dashboard"];
 const GUEST_ONLY_ROUTES = ["/login"];
 const LEGACY_REDIRECTS = {
+  "/home": "/",
+  "/apartman-1": "/apartmani/apartman-1",
+  "/apartman-2": "/apartmani/apartman-2",
+  "/studio-apartman": "/apartmani/studio",
   "/en": "/",
+  "/en/home": "/",
   "/en/apartments": "/apartmani",
   "/en/apartment-1": "/apartmani/apartman-1",
   "/en/apartment-2": "/apartmani/apartman-2",
   "/en/studio": "/apartmani/studio",
+  "/en/studio-apartment": "/apartmani/studio",
   "/en/about-us": "/o-nama",
   "/en/contact": "/kontakt",
 };

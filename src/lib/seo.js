@@ -1,9 +1,9 @@
 export const SITE = {
   name: "Apartmani Ante",
   legalName: "Apartmani Ante Makarska",
-  defaultTitle: "Apartmani Ante Makarska | Privatni apartmani za odmor",
+  defaultTitle: "Apartmani za odmor u Makarskoj | Apartmani Ante",
   defaultDescription:
-    "Apartmani Ante Makarska nude udoban, prostran smještaj u mirnom dijelu grada s prekrasnim pogledom za nezaboravan odmor. Pošaljite upit za rezervaciju.",
+    "Apartmani Ante Makarska nude miran privatni smještaj za obitelji i parove, s parkingom, klimom i WiFi-jem za ljetni odmor u Makarskoj.",
   defaultImage: "/img/kuca-apartmani-ante.webp",
   locale: "hr_HR",
   language: "hr-HR",
@@ -110,9 +110,9 @@ export function buildSeo({ pathname, origin, data }) {
   }
 
   if (pathname === "/") {
-    seo.title = "Apartmani Ante Makarska | Privatni apartmani za odmor";
+    seo.title = "Apartmani za odmor u Makarskoj | Apartmani Ante";
     seo.description =
-      "Apartmani Ante Makarska nude udoban, prostran smještaj u mirnom dijelu grada s prekrasnim pogledom za nezaboravan odmor. Pošaljite upit za rezervaciju.";
+      "Miran obiteljski smještaj u Makarskoj. Apartmani za parove i obitelji s parkingom, klimom, WiFi-jem i jednostavnim upitom za rezervaciju.";
     seo.schema.push(
       {
         "@context": "https://schema.org",
@@ -130,9 +130,9 @@ export function buildSeo({ pathname, origin, data }) {
   }
 
   if (pathname === "/apartmani") {
-    seo.title = "Apartmani u Makarskoj | Apartmani Ante";
+    seo.title = "Privatni apartmani u Makarskoj | Apartmani Ante";
     seo.description =
-      "Odaberite apartman koji vam najviše odgovara i pogledajte fotografije, sadržaje i dostupne termine za odmor u Makarskoj.";
+      "Odaberite studio ili apartman u Makarskoj za 2 do 5 osoba. Privatni smještaj s parkingom, klimom, WiFi-jem, fotografijama, cjenikom i upitom za rezervaciju.";
     seo.schema.push(
       {
         "@context": "https://schema.org",
@@ -161,8 +161,8 @@ export function buildSeo({ pathname, origin, data }) {
   }
 
   if (pathname.startsWith("/apartmani/") && apartment) {
-    seo.title = `${apartment.name} | Apartmani Ante Makarska`;
-    seo.description = `${apartment.name} u Makarskoj nudi smještaj za ${apartment.capacity}, površinu ${apartment.size}, fotografije, sadržaje i jednostavan upit za rezervaciju.`;
+    seo.title = `${apartment.name} Makarska | Apartmani Ante`;
+    seo.description = `${apartment.name} u Makarskoj nudi privatni smještaj za ${apartment.capacity}, površinu ${apartment.size}, parking, klimu, WiFi, fotografije, cjenik i upit za rezervaciju.`;
     seo.image = absoluteUrl(
       apartment.images?.[0] || apartment.image || SITE.defaultImage,
       origin,

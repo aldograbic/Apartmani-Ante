@@ -190,7 +190,7 @@
       {/each}
     </div>
     <h1 class="hero-title mb-4 text-white leading-[1.0] tracking-[-0.01em]">
-      {apt.name}
+      {apt.name} Makarska
     </h1>
     <p
       class="hero-sub max-w-[42ch] text-[0.92rem] leading-relaxed text-white/55"
@@ -393,11 +393,11 @@
     {/if}
     <div class="mb-10">
       <p class="section-kicker">
-        <span class="section-kicker__line"></span>U blizini
+        <span class="section-kicker__line"></span>Lokacija blizu plaže
       </p>
       <div class="detail-card">
         <ul>
-          {#each ["Udaljenost kafića: 150 m", "Udaljenost od trgovine: 290 m (Ribola), 300 m (Konzum)", "Udaljenost do crkve i parka: 300 m", "Udaljenost restorana: 400 m", "Udaljenost do plaže: 600 m", "Udaljenost do autobusnog kolodvora: 1 km", "Udaljenost do centra grada: 1,4 km"] as nearbyItem}
+          {#each ["Kafići: 150 m", "Trgovine: 290 m (Ribola), 300 m (Konzum)", "Crkva i park: 300 m", "Restorani: 400 m", "Plaža Makarska: 600 m", "Autobusni kolodvor: 1 km", "Centar Makarske: 1,4 km"] as nearbyItem}
             <li>{nearbyItem}</li>
           {/each}
         </ul>

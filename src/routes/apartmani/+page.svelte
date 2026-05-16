@@ -213,13 +213,13 @@
       Smještaj
     </p>
     <h1 class="hero-title mb-5 text-white leading-[1.0] tracking-[-0.01em]">
-      Naši<br /><em class="text-[#c8a97e]">apartmani</em>
+      Privatni apartmani<br /><em class="text-[#c8a97e]">u Makarskoj</em>
     </h1>
     <p
       class="hero-sub max-w-[42ch] text-[0.92rem] leading-relaxed text-white/55"
     >
-      Tri pažljivo opremljene jedinice za svaki tip odmora - od romantičnog
-      bijega do obiteljskog ljetovanja.
+      Smještaj za parove i obitelji, s parkingom, klimom i WiFi-jem za miran
+      ljetni odmor u Makarskoj.
     </p>
   </div>
 </section>
@@ -543,7 +543,7 @@
     <div
       class="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-0 md:divide-x md:divide-white/[0.08]"
     >
-      {#each [{ label: "Check-in", value: "14:00 - 22:00" }, { label: "Check-out", value: "do 10:00" }, { label: "Minimalni boravak", value: "2 noći (sezona)" }, { label: "Parking", value: "Besplatan" }] as item}
+      {#each [{ label: "Plaža", value: "600 m" }, { label: "Centar", value: "1,4 km" }, { label: "Minimalni boravak", value: "2 noći (sezona)" }, { label: "Parking", value: "Besplatan" }] as item}
         <div class="text-center md:px-8">
           <span
             class="mb-2 block text-[0.58rem] uppercase tracking-[0.22em] text-[#8fd5cc]"
