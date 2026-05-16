@@ -1,7 +1,7 @@
 export const SITE = {
   name: "Apartmani Ante",
   legalName: "Apartmani Ante Makarska",
-  defaultTitle: "Apartmani za odmor u Makarskoj | Apartmani Ante",
+  defaultTitle: "Apartmani za odmor u Makarskoj s parkingom | Apartmani Ante",
   defaultDescription:
     "Apartmani Ante Makarska nude miran privatni smještaj za obitelji i parove, s parkingom, klimom i WiFi-jem za ljetni odmor u Makarskoj.",
   defaultImage: "/img/kuca-apartmani-ante.webp",
@@ -110,7 +110,7 @@ export function buildSeo({ pathname, origin, data }) {
   }
 
   if (pathname === "/") {
-    seo.title = "Apartmani za odmor u Makarskoj | Apartmani Ante";
+    seo.title = "Apartmani za odmor u Makarskoj s parkingom | Apartmani Ante";
     seo.description =
       "Miran obiteljski smještaj u Makarskoj. Apartmani za parove i obitelji s parkingom, klimom, WiFi-jem i jednostavnim upitom za rezervaciju.";
     seo.schema.push(

@@ -149,10 +149,10 @@
       </div>
 
       <div class="flex flex-wrap gap-2">
-        {#each ["Privatni smještaj", "Obiteljski apartmani", "Besplatan parking", "Klima i WiFi"] as f, i}
+        {#each ["Privatni smještaj", "Obiteljski apartmani", "Besplatan parking", "Klima i WiFi"] as f}
           <span
             class="pill text-white/75 border border-white/20 bg-white/[0.09] backdrop-blur-sm px-4 py-2 text-[0.65rem] tracking-[0.12em] uppercase"
-            style="--d:{i * 80}ms">{f}</span
+            >{f}</span
           >
         {/each}
       </div>
@@ -206,7 +206,6 @@
               bind:value={dolazak}
               bind:this={dolazakInput}
               class="booking-input booking-input--native"
-              style="color-scheme: dark;"
             />
           </label>
         </div>
@@ -242,7 +241,6 @@
               bind:value={odlazak}
               bind:this={odlazakInput}
               class="booking-input booking-input--native"
-              style="color-scheme: dark;"
             />
           </label>
         </div>
@@ -315,7 +313,7 @@
           niz godina. Svaki detalj osmišljen je s jednom mišlju — da se osjećate
           kao kod kuće.
         </p>
-        <p class="text-[#5a5a52] leading-[1.9] text-[0.9rem] mb-10">
+        <p class="text-[#5a5a52] leading-[1.9] text-[0.9rem] mb-4">
           Smješteni u mirnoj četvrti Makarske, svega nekoliko koraka od gradske
           plaže — savršena kombinacija privatnosti i blizine svemu što Makarska
           nudi.
@@ -380,8 +378,7 @@
             "
             sizes="(min-width: 768px) 236px, 166px"
             alt="Makarska obala"
-            class="h-full w-full object-cover transition-transform duration-700 hover:scale-[1.03]"
-            style="overflow-clip-margin: unset;"
+            class="clip-reset h-full w-full object-cover transition-transform duration-700 hover:scale-[1.03]"
             loading="lazy"
           />
         </div>
@@ -424,7 +421,7 @@
     </div>
 
     <div
-      class="mt-14 grid gap-6 border-t border-[#e6dcc8] pt-8 text-[#5a5a52] md:grid-cols-2"
+      class="mt-14 grid gap-6 border-t border-[#e6dcc8] pt-8 text-[#5a5a52] md:grid-cols-3"
     >
       <p class="text-[0.9rem] leading-[1.9]">
         Ako tražite apartmane u Makarskoj za obiteljski odmor, Apartmani Ante
@@ -437,6 +434,13 @@
         parkingom, a plažu, šetnicu, restorane i izlete po Makarskoj rivijeri
         žele imati dostupne pješice. Pošaljite upit za rezervaciju i provjerite
         koji apartman najbolje odgovara broju gostiju i terminu putovanja.
+      </p>
+      <p class="text-[0.9rem] leading-[1.9]">
+        Smještaj je namijenjen gostima koji žele praktičan boravak bez
+        nepotrebne gužve: studio apartman za dvoje, apartman za 4 osobe i veći
+        apartman za obitelji do 5 osoba. Svi apartmani imaju osnovne sadržaje za
+        samostalan boravak, od kuhinje i kupaonice do posteljine, ručnika,
+        klimatizacije i besplatnog WiFi-ja.
       </p>
     </div>
   </div>
@@ -487,10 +491,9 @@
       </div>
 
       <div class="border-t border-white/[0.08]">
-        {#each whyUs as w, i}
+        {#each whyUs as w}
           <div
             class="why-row group grid grid-cols-[2.5rem_1fr] items-center gap-x-5 border-b border-white/[0.08] py-6 md:grid-cols-[2.5rem_1fr_auto] md:gap-x-8"
-            style="--i:{i}"
           >
             <span
               class="self-start pt-0.5 text-[0.58rem] tracking-[0.14em] text-white/25 transition-colors duration-200 group-hover:text-[#8fd5cc]"
@@ -540,6 +543,29 @@
   <div
     class="pointer-events-none absolute -bottom-20 left-0 h-72 w-72 rounded-full bg-[#0d2623]/50 blur-3xl"
   ></div>
+  <svg
+    class="pointer-events-none absolute inset-x-0 top-1/2 h-56 w-full -translate-y-1/2 text-white/[0.08]"
+    viewBox="0 0 1440 260"
+    fill="none"
+    preserveAspectRatio="none"
+    aria-hidden="true"
+  >
+    <path
+      d="M-40 74C98 34 213 40 344 91C490 147 610 153 755 98C890 47 1012 38 1148 82C1264 120 1361 121 1480 81"
+      stroke="currentColor"
+      stroke-width="2"
+    />
+    <path
+      d="M-40 138C91 96 228 101 366 150C504 199 643 202 782 149C918 97 1055 95 1197 143C1306 180 1394 184 1480 154"
+      stroke="currentColor"
+      stroke-width="1.5"
+    />
+    <path
+      d="M-40 202C99 163 219 168 350 213C499 264 636 261 780 209C913 160 1042 157 1184 199C1302 234 1387 235 1480 203"
+      stroke="currentColor"
+      stroke-width="1"
+    />
+  </svg>
 
   <div class="relative z-10 mx-auto max-w-[1200px] px-8 md:px-16">
     <div
@@ -637,6 +663,9 @@
     animation: heroZoom 12s ease-out forwards;
     object-position: 60% center; /* pulls camera toward the bay */
   }
+  .clip-reset {
+    overflow-clip-margin: unset;
+  }
   @keyframes heroZoom {
     to {
       transform: scale(1) translateZ(0);
@@ -670,7 +699,16 @@
     font-family: var(--font-body);
     border-radius: 999px;
     opacity: 0;
-    animation: slideUp 0.6s calc(0.7s + var(--d)) @ease forwards;
+    animation: slideUp 0.6s 0.7s @ease forwards;
+  }
+  .pill:nth-child(2) {
+    animation-delay: 0.78s;
+  }
+  .pill:nth-child(3) {
+    animation-delay: 0.86s;
+  }
+  .pill:nth-child(4) {
+    animation-delay: 0.94s;
   }
 
   // ─── Booking bar ──────────────────────────────────────────────────────
@@ -803,6 +841,7 @@
     inset: 0;
     opacity: 0;
     cursor: pointer;
+    color-scheme: dark;
   }
 
   .btn-booking-cta {
@@ -921,7 +960,22 @@
   .why-row {
     opacity: 0;
     transform: translateY(10px);
-    animation: rowin 0.5s @ease calc(var(--i) * 65ms) forwards;
+    animation: rowin 0.5s @ease forwards;
+  }
+  .why-row:nth-child(2) {
+    animation-delay: 65ms;
+  }
+  .why-row:nth-child(3) {
+    animation-delay: 130ms;
+  }
+  .why-row:nth-child(4) {
+    animation-delay: 195ms;
+  }
+  .why-row:nth-child(5) {
+    animation-delay: 260ms;
+  }
+  .why-row:nth-child(6) {
+    animation-delay: 325ms;
   }
   @keyframes rowin {
     to {

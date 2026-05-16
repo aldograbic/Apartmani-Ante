@@ -6,7 +6,6 @@
 <a
   href={apartment.href}
   class="card group block text-white no-underline"
-  style="--i: {index}"
 >
   <div
     class="card__visual relative overflow-hidden bg-[#0a2220] shadow-[0_24px_60px_rgba(8,26,24,0.16)]"
@@ -74,7 +73,15 @@
     overflow: hidden;
     position: relative;
     cursor: pointer;
-    animation: cardIn 0.65s @ease-out calc(var(--i) * 110ms) both;
+    animation: cardIn 0.65s @ease-out both;
+
+    &:nth-child(2) {
+      animation-delay: 110ms;
+    }
+
+    &:nth-child(3) {
+      animation-delay: 220ms;
+    }
 
     &:nth-child(2) .card__visual {
       aspect-ratio: 3/4;
