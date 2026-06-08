@@ -125,15 +125,17 @@
   function calculateSelectedStay(checkIn, checkOut) {
     if (!checkIn || !checkOut) return null;
 
-    const start = new Date(`${checkIn}T00:00:00`);
-    const end = new Date(`${checkOut}T00:00:00`);
+    const [startYear, startMonth, startDay] = checkIn.split("-").map(Number);
+    const [endYear, endMonth, endDay] = checkOut.split("-").map(Number);
+    const start = new Date(Date.UTC(startYear, startMonth - 1, startDay));
+    const end = new Date(Date.UTC(endYear, endMonth - 1, endDay));
     let total = 0;
     let nights = 0;
 
     for (
       const cursor = new Date(start);
       cursor < end;
-      cursor.setDate(cursor.getDate() + 1)
+      cursor.setUTCDate(cursor.getUTCDate() + 1)
     ) {
       const dateKey = cursor.toISOString().slice(0, 10);
       const season = getSeasonalPriceForDate(dateKey);

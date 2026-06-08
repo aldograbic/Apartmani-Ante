@@ -123,7 +123,7 @@
     syncSelection(date, "");
     refreshCalendarDayCells();
     setStatus(
-      `Dolazak je odabran za ${formatShortDate(date)}. Sada kliknite datum odlaska.`,
+      `Dolazak je odabran za ${formatShortDate(date)} Sada kliknite datum odlaska.`,
     );
   }
 
@@ -246,7 +246,7 @@
         pendingCheckIn = "";
         syncSelection(startStr, endStr);
         setStatus(
-          `Odabran je termin od ${formatShortDate(startStr)} do ${formatShortDate(endStr)}.`,
+          `Odabran je termin od ${formatShortDate(startStr)} do ${formatShortDate(endStr)}`,
         );
         calendar.unselect();
       },
@@ -286,7 +286,7 @@
 
         syncSelection(pendingCheckIn, dateStr);
         setStatus(
-          `Odabran je termin od ${formatShortDate(pendingCheckIn)} do ${formatShortDate(dateStr)}.`,
+          `Odabran je termin od ${formatShortDate(pendingCheckIn)} do ${formatShortDate(dateStr)}`,
         );
         clearPendingSelection();
       },
