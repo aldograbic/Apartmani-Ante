@@ -10,6 +10,7 @@
   export let showGuestNames = true;
   export let mergeAdjacentBookings = false;
   export let minDate = "";
+  export let minNights = 1;
   export let allowDragSelection = true;
   export let getDayMeta = null;
 
@@ -45,6 +46,19 @@
     const date = parseDate(value);
     date.setDate(date.getDate() + days);
     return toDayKey(date);
+  }
+
+  function countNights(checkIn, checkOut) {
+    const [startYear, startMonth, startDay] = checkIn.split("-").map(Number);
+    const [endYear, endMonth, endDay] = checkOut.split("-").map(Number);
+    const start = Date.UTC(startYear, startMonth - 1, startDay);
+    const end = Date.UTC(endYear, endMonth - 1, endDay);
+
+    return Math.round((end - start) / 86400000);
+  }
+
+  function meetsMinimumStay(checkIn, checkOut) {
+    return countNights(checkIn, checkOut) >= minNights;
   }
 
   function isBeforeMinDate(date) {
@@ -228,6 +242,10 @@
           return false;
         }
 
+        if (!meetsMinimumStay(startStr, endStr)) {
+          return false;
+        }
+
         if (isBeforeMinDate(startStr)) {
           return false;
         }
@@ -243,6 +261,15 @@
           return;
         }
 
+        if (!meetsMinimumStay(startStr, endStr)) {
+          setStatus(
+            `Minimalni boravak je ${minNights} noći. Odaberite kasniji datum odlaska.`,
+            "error",
+          );
+          calendar.unselect();
+          return;
+        }
+
         pendingCheckIn = "";
         syncSelection(startStr, endStr);
         setStatus(
@@ -252,7 +279,10 @@
       },
       dateClick: ({ dateStr }) => {
         if (isBeforeMinDate(dateStr)) {
-          setStatus("Nije moguce odabrati datume prije danasnjeg dana.", "error");
+          setStatus(
+            "Nije moguće odabrati datume prije današnjeg dana.",
+            "error",
+          );
           return;
         }
 
@@ -273,6 +303,14 @@
           }
 
           markPendingArrival(dateStr);
+          return;
+        }
+
+        if (!meetsMinimumStay(pendingCheckIn, dateStr)) {
+          setStatus(
+            `Minimalni boravak je ${minNights} noći. Odaberite kasniji datum odlaska.`,
+            "error",
+          );
           return;
         }
 

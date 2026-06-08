@@ -22,6 +22,15 @@ function hasOverlap(existingBookings, checkIn, checkOut) {
   );
 }
 
+function countNights(checkIn, checkOut) {
+  const [startYear, startMonth, startDay] = checkIn.split("-").map(Number);
+  const [endYear, endMonth, endDay] = checkOut.split("-").map(Number);
+  const start = Date.UTC(startYear, startMonth - 1, startDay);
+  const end = Date.UTC(endYear, endMonth - 1, endDay);
+
+  return Math.round((end - start) / 86400000);
+}
+
 export async function load({ params }) {
   const apartment = apartments.find((item) => item.id === params.slug);
 
@@ -93,6 +102,14 @@ export const actions = {
     if (checkOut <= checkIn) {
       return fail(400, {
         reservationError: "Datum odlaska mora biti nakon datuma dolaska.",
+      });
+    }
+
+    const nights = countNights(checkIn, checkOut);
+
+    if (!Number.isInteger(nights) || nights < 2) {
+      return fail(400, {
+        reservationError: "Minimalni boravak je 2 noći.",
       });
     }
 

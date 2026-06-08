@@ -1,5 +1,6 @@
 <script>
   import { enhance } from "$app/forms";
+  import { tick } from "svelte";
   import { apartments } from "$lib/data/apartments.js";
   import BookingCalendar from "$lib/components/BookingCalendar.svelte";
   import Select from "$lib/components/Select.svelte";
@@ -13,6 +14,7 @@
     timeZone: "Europe/Zagreb",
   }).format(new Date());
   let activeImage = 0;
+  let viewerThumbElements = [];
   let viewerOpen = false;
   let modalOpen = false;
   let reservationStep = 1;
@@ -61,9 +63,19 @@
     reservationStep = 1;
   }
 
+  async function scrollActiveViewerThumb() {
+    await tick();
+    viewerThumbElements[activeImage]?.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "center",
+    });
+  }
+
   function openViewer(index = activeImage) {
     activeImage = index;
     viewerOpen = true;
+    scrollActiveViewerThumb();
   }
 
   function closeViewer() {
@@ -77,10 +89,18 @@
 
   function showPrevImage() {
     activeImage = activeImage === 0 ? apt.images.length - 1 : activeImage - 1;
+    if (viewerOpen) scrollActiveViewerThumb();
   }
 
   function showNextImage() {
     activeImage = activeImage === apt.images.length - 1 ? 0 : activeImage + 1;
+    if (viewerOpen) scrollActiveViewerThumb();
+  }
+
+  function getGalleryImageVariant(image, variant) {
+    if (apt.id !== "apartman-1") return image;
+
+    return image.replace(/\.webp$/, `-${variant}.webp`);
   }
 
   function handleRangeSelect(event) {
@@ -207,7 +227,7 @@
     class="breadcrumb-bar mx-auto flex max-w-[var(--container)] items-center gap-2 px-8 py-4 text-[0.72rem] text-[#8a8a80] md:px-16"
   >
     <a href="/" class="text-[#1e5c5a] transition-colors hover:text-[#154240]"
-      >Pocetna</a
+      >Početna</a
     >
     <span class="text-[#c8c0b4]">/</span>
     <a
@@ -248,7 +268,10 @@
             aria-label="Otvori veliku sliku"
           >
             <img
-              src={apt.images[activeImage]}
+              src={getGalleryImageVariant(
+                apt.images[activeImage],
+                "preview",
+              )}
               alt="{apt.name} - slika {activeImage + 1}"
               class="gallery-main"
             />
@@ -257,7 +280,7 @@
           <button
             class="gallery-nav gallery-nav--right"
             on:click={showNextImage}
-            aria-label="Sljedeca slika"
+            aria-label="Sljedeća slika"
           >
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
               ><path
@@ -275,14 +298,32 @@
         </div>
 
         <div class="gallery-thumbs">
-          {#each apt.images as img, i}
+          {#each apt.images.slice(0, 6) as img, i}
             <button
-              class:active={activeImage === i}
+              type="button"
+              class:active={activeImage === i || (i === 5 && activeImage >= 5)}
+              class:gallery-thumb--more={i === 5 && apt.images.length > 6}
               class="gallery-thumb"
-              on:click={() => (activeImage = i)}
-              aria-label="Slika {i + 1}"
+              on:click={() =>
+                i === 5 && apt.images.length > 6
+                  ? openViewer(i)
+                  : (activeImage = i)}
+              aria-label={i === 5 && apt.images.length > 6
+                ? `Otvori svih ${apt.images.length} fotografija`
+                : `Slika ${i + 1}`}
             >
-              <img src={img} alt="Pregled slike {i + 1}" />
+              <img
+                src={getGalleryImageVariant(img, "thumb")}
+                alt="Pregled slike {i + 1}"
+                loading="lazy"
+                decoding="async"
+              />
+              {#if i === 5 && apt.images.length > 6}
+                <span class="gallery-thumb__more">
+                  +{apt.images.length - 6}
+                  <small>fotografija</small>
+                </span>
+              {/if}
             </button>
           {/each}
         </div>
@@ -357,7 +398,7 @@
           <p class="feedback feedback--error">{form.reservationError}</p>
         {/if}
 
-        <div class="flex flex-wrap gap-3">
+        <div class="apartment-actions">
           <button type="button" class="btn-primary" on:click={openModal}>
             Rezerviraj ovaj apartman
             <svg width="16" height="16" viewBox="0 0 18 18" fill="none"
@@ -489,7 +530,7 @@
               <div class="apt-reveal">
                 <p class="apt-desc">{apt2.description}</p>
                 <span class="apt-cta">
-                  Saznajte vise
+                  Saznajte više
                   <svg width="13" height="13" viewBox="0 0 16 16" fill="none"
                     ><path
                       d="M3 8h10M9 4l4 4-4 4"
@@ -581,6 +622,7 @@
     role="dialog"
     aria-modal="true"
     aria-labelledby="reservation-title"
+    on:click|self={closeModal}
   >
     <div class="modal-card">
       <button
@@ -612,13 +654,14 @@
         <div class="modal-step">
           <p class="modal-copy">
             Najprije odaberite željeni raspon datuma. Kliknite datum dolaska pa
-            datum odlaska, a zauzeti termini su vec označeni na kalendaru.
+            datum odlaska, a zauzeti termini su već označeni na kalendaru.
           </p>
           <BookingCalendar
             bookings={data.bookings}
             showGuestNames={false}
             mergeAdjacentBookings={true}
             minDate={today}
+            minNights={2}
             allowDragSelection={false}
             getDayMeta={getCalendarDayMeta}
             on:selectrange={handleRangeSelect}
@@ -825,13 +868,14 @@
           src={apt.images[activeImage]}
           alt="{apt.name} - velika slika {activeImage + 1}"
           class="viewer-image"
+          decoding="async"
         />
 
         <button
           class="viewer-nav viewer-nav--right"
           type="button"
           on:click={showNextImage}
-          aria-label="Sljedeca slika"
+          aria-label="Sljedeća slika"
         >
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
             ><path
@@ -861,10 +905,19 @@
             type="button"
             class:active={activeImage === i}
             class="viewer-thumb"
-            on:click={() => (activeImage = i)}
+            bind:this={viewerThumbElements[i]}
+            on:click={() => {
+              activeImage = i;
+              scrollActiveViewerThumb();
+            }}
             aria-label="Otvori sliku {i + 1}"
           >
-            <img src={img} alt="{apt.name} - pregled {i + 1}" />
+            <img
+              src={getGalleryImageVariant(img, "thumb")}
+              alt="{apt.name} - pregled {i + 1}"
+              loading="lazy"
+              decoding="async"
+            />
           </button>
         {/each}
       </div>
@@ -1028,13 +1081,12 @@
     gap: 0.75rem;
   }
   .gallery-thumb {
+    position: relative;
     overflow: hidden;
     border-radius: 1.2rem;
-    border: 2px solid transparent;
     opacity: 0.62;
     transition:
       opacity 0.2s ease,
-      border-color 0.2s ease,
       transform 0.2s ease;
   }
   .gallery-thumb img {
@@ -1042,11 +1094,34 @@
     height: 7rem;
     object-fit: cover;
   }
+  .gallery-thumb--more {
+    opacity: 1;
+  }
+  .gallery-thumb__more {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.15rem;
+    background: rgba(7, 21, 19, 0.62);
+    color: white;
+    font-family: var(--font-body);
+    font-size: 1.2rem;
+    font-weight: 600;
+    backdrop-filter: blur(2px);
+  }
+  .gallery-thumb__more small {
+    font-size: 0.52rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
   .gallery-thumb:hover,
   .gallery-thumb.active {
     opacity: 1;
     transform: translateY(-2px);
-    border-color: #1e5c5a;
   }
   .info-pill {
     display: inline-flex;
@@ -1233,6 +1308,15 @@
     letter-spacing: 0.12em;
     text-transform: uppercase;
     transition: all 0.25s ease;
+  }
+  .apartment-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  .apartment-actions .btn-primary,
+  .apartment-actions .btn-ghost-teal {
+    width: 100%;
   }
   .btn-ghost-teal:hover {
     background: #1e5c5a;
@@ -1488,15 +1572,19 @@
   }
   .viewer-stage {
     position: relative;
-    min-height: min(78vh, 52rem);
+    height: min(68vh, 46rem);
+    max-height: calc(100dvh - 14rem);
+    min-height: 24rem;
     overflow: hidden;
     border-radius: 1.4rem;
     background: rgba(255, 255, 255, 0.04);
   }
   .viewer-image {
+    display: block;
     width: 100%;
     height: 100%;
-    min-height: min(78vh, 52rem);
+    max-width: 100%;
+    max-height: 100%;
     object-fit: contain;
   }
   .viewer-nav {
@@ -1565,12 +1653,10 @@
   .viewer-thumb {
     overflow: hidden;
     border-radius: 1rem;
-    border: 2px solid transparent;
     opacity: 0.58;
     transition:
       opacity 0.2s ease,
-      transform 0.2s ease,
-      border-color 0.2s ease;
+      transform 0.2s ease;
   }
   .viewer-thumb img {
     width: 100%;
@@ -1581,7 +1667,6 @@
   .viewer-thumb.active {
     opacity: 1;
     transform: translateY(-2px);
-    border-color: rgba(143, 213, 204, 0.9);
   }
   .modal-close {
     position: absolute;
@@ -1726,9 +1811,10 @@
     .viewer-shell {
       padding: 1rem;
     }
-    .viewer-stage,
-    .viewer-image {
-      min-height: 62vh;
+    .viewer-stage {
+      height: min(62dvh, 40rem);
+      max-height: calc(100dvh - 13rem);
+      min-height: 20rem;
     }
   }
   @media (max-width: 640px) {
@@ -1767,6 +1853,10 @@
     .gallery-shell {
       gap: 0.85rem;
     }
+    .gallery-thumbs {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.6rem;
+    }
     .gallery-stage {
       min-height: 0;
       aspect-ratio: 1 / 0.82;
@@ -1775,14 +1865,8 @@
     .gallery-thumb img {
       height: 4.75rem;
     }
-    .flex.flex-wrap.gap-3 {
-      display: grid;
+    .apartment-actions {
       grid-template-columns: 1fr;
-    }
-    .flex.flex-wrap.gap-3 .btn-primary,
-    .flex.flex-wrap.gap-3 .btn-ghost-teal {
-      width: 100%;
-      justify-content: center;
     }
     .selected-range,
     .selected-summary {
@@ -1850,9 +1934,10 @@
     .viewer-nav--right {
       right: 0.65rem;
     }
-    .viewer-stage,
-    .viewer-image {
-      min-height: 48vh;
+    .viewer-stage {
+      height: min(58dvh, 34rem);
+      max-height: calc(100dvh - 12rem);
+      min-height: 16rem;
     }
     .viewer-meta {
       flex-direction: column;

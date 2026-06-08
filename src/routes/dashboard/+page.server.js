@@ -49,7 +49,7 @@ export const actions = {
         bookingError:
           error instanceof Error
             ? error.message
-            : "Rezervaciju trenutno nije moguce spremiti.",
+            : "Rezervaciju trenutno nije moguće spremiti.",
       });
     }
 
