@@ -622,7 +622,6 @@
     role="dialog"
     aria-modal="true"
     aria-labelledby="reservation-title"
-    on:click|self={closeModal}
   >
     <div class="modal-card">
       <button
@@ -1514,9 +1513,11 @@
     display: grid;
     place-items: center;
     padding: 1.5rem;
+    pointer-events: none;
   }
   .modal-card {
     position: relative;
+    pointer-events: auto;
     width: min(100%, 62rem);
     max-height: calc(100vh - 3rem);
     overflow: auto;
